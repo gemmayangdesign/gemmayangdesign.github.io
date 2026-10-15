@@ -3,9 +3,7 @@
   var photographs = [
     { file: '01.jpg', caption: 'Night Walk' },
     { file: '02.jpg', caption: 'Manly Sunset' },
-    { file: '03.jpg', caption: 'Tokyo Night' },
     { file: '04.jpg', caption: 'Tokyo Summer' },
-    { file: '05.jpg', caption: 'Fushimi Inari' },
     { file: '06.jpg', caption: 'Summer Memory' },
     { file: '07.jpg', caption: 'Evening Commute' },
     { file: '08.jpg', caption: 'People on the Bridge' },
@@ -48,6 +46,26 @@
   var previous = document.querySelector('.archive-arrow-prev');
   var next = document.querySelector('.archive-arrow-next');
   if (!track || !windowFrame || !caption || !count || !previous || !next) return;
+  if (isPhotography) {
+    var mobileList = document.createElement('div');
+    mobileList.className = 'photography-mobile-list';
+    mobileList.setAttribute('aria-label', 'Photography archive');
+    photographs.forEach(function (item) {
+      var figure = document.createElement('figure');
+      var picture = document.createElement('img');
+      var label = document.createElement('figcaption');
+      picture.src = 'images/' + item.file;
+      picture.alt = item.caption;
+      picture.loading = 'lazy';
+      picture.width = item.file === '09.jpg' || item.file === '14.jpg' ? 1200 : 1800;
+      picture.height = item.file === '09.jpg' || item.file === '14.jpg' ? 1800 : 1200;
+      label.textContent = item.caption;
+      figure.appendChild(picture);
+      figure.appendChild(label);
+      mobileList.appendChild(figure);
+    });
+    document.querySelector('.archive-gallery').appendChild(mobileList);
+  }
   var index = 0;
   var moving = false;
   var touchStart = null;
